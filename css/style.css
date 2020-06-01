@@ -1,0 +1,63 @@
+h1{
+  text-align: center;
+}
+
+.h2, h2 {
+    font-size: 1.5rem!important;
+    text-align: center;
+    border-bottom: 1px solid #e0e5e9;
+    padding: 5px;
+}
+html.js-focus-visible body {
+  background: #f4f8fc;
+  color: #18164c;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+td {
+  border: 3px solid #18164c;
+}
+
+tr {
+  text-align: center;
+}
+
+table {
+    width: 100%;
+}
+
+.col{
+  padding-top: 15px;
+}
+
+.charts {
+    padding-left: 55px;
+}
+
+canvas#myChart{
+    height: 200px!important;
+    width: 400px!important;
+}
+
+canvas#myChart1{
+    height: 200px!important;
+    width: 400px!important;
+}
+
+.card {
+    border-radius: .625rem;
+    box-shadow: 0 2px 4px 0 rgba(1,1,2,.16);
+    border: none;
+}
+
+.col-charts{
+  margin-top: -94px;
+}
+
+span.ratio {
+    float: right;
+}
+
+
+

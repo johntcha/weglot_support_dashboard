@@ -1,0 +1,5 @@
+parameters:
+    ignoreErrors:
+        # Ignore type errors for passing a Mock
+        - '#.*MockObject given.*#'
+        - '#.*MockInterface given.*#'
