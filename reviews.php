@@ -1,6 +1,7 @@
 <?php
+//https://simplehtmldom.sourceforge.io/manual.htm
 include 'simple_html_dom.php';
-//Total reviews
+//TOTAL DE REVIEWS DES 3 PLATEFORMES
 $html_trust = file_get_html('https://fr.trustpilot.com/review/weglot.com', false);
 $review_trust = $html_trust->find('span[class="headline__review-count"]',0)->plaintext;
 
@@ -18,14 +19,13 @@ $review_word = str_replace(",", "", "$review_word");
 $total_all = $review_word + $review_shop + $review_trust;
 
 ////////////////////////////SHOPIFY REVIEWS////////////////////////////////////
+/////////////////// WEEKLY ///////////////////
 $html_shop_w = file_get_html('https://apps.shopify.com/weglot/reviews', false);
 $list_shop_w = $html_shop_w->find('div[class="review-metadata__item-value"]');
 
-
-
 for ($i = 0; $i < sizeof($list_shop_w); $i++){
 	if ($i%2 == 0) {	
-	$reviews_list_shop[] = $list_shop_w[$i+1]->plaintext;//we only get dates here
+	$reviews_list_shop[] = $list_shop_w[$i+1]->plaintext;//Get only dates and not stars
 
 	}		
 }
@@ -33,12 +33,12 @@ for ($i = 0; $i < sizeof($list_shop_w); $i++){
 $stars_Shop = $html_shop_w->find('div[class="ui-star-rating"]');
 $DataRating = "data-rating";
 $stars_Shop_filtered = array_slice($stars_Shop, 5); 
-for ($i = 0; $i < sizeof($stars_Shop_filtered); $i++){
+for ($i = 0; $i < sizeof($stars_Shop_filtered); $i++){//Get only stars and not dates
 	$reviews_stars_shop[] = $stars_Shop_filtered[$i]->$DataRating;
 }
 
 
-//count number of 5 stars on Shopify each week from the last Monday 00:00:00
+//count the numnber of 5 stars on Shopify each week from last MONDAY 00:00:00
 function count_review_Shopify($list1, $list2){//$list1 = dates  $list2 = stars
 $mondays_start=strtotime('last monday + 2 hour', strtotime('tomorrow'));
 $p=0;
@@ -55,7 +55,51 @@ return $p;
 
 $shopp = count_review_Shopify($reviews_list_shop, $reviews_stars_shop);
 
+/////////////////// MONTHLY ///////////////////
 
+$files = array();
+$urls = array(
+    'https://apps.shopify.com/weglot/reviews',
+    'https://apps.shopify.com/weglot/reviews?page=2',
+    'https://apps.shopify.com/weglot/reviews?page=3',
+    'https://apps.shopify.com/weglot/reviews?page=4',
+    'https://apps.shopify.com/weglot/reviews?page=5'
+);
+
+foreach($urls as $url) {
+    $html_month = file_get_html($url);
+    foreach($html_month->find('div[class="review-metadata__item-value"]') as $file) {
+        $item[] = $file; 
+    }
+    foreach ($html_month->find('div[class="ui-star-rating"]') as $file1) {
+    	$item1[] = $file1;	
+    }  
+}
+
+for ($i = 0; $i < sizeof($item); $i++){
+	if ($i%2 == 0) {	
+	$reviews_list_shop_month[] = $item[$i+1]->plaintext;//Get only dates and not stars
+	}		
+}
+//print_r($reviews_list_shop_month);
+$stars_Shop_month = $html_month->find('div[class="ui-star-rating"]');
+$DataRating_month = "data-rating";
+$stars_Shop_filtered_month = array_slice($item1, 5);
+//$stars_Shop_filtered_month = array_slice($item1, 9, 14); 
+/*$array = [0 => "a", 1 => "b", 2 => "c"];
+    unset($array[1]);
+                //↑ Key which you want to delete*/
+
+    //faire des boucle for pour retirer les 5 premieres stars des pages à la main
+/*for ($i = 9; $i<15; $i++){
+	unset($stars_Shop_filtered_month[$i]);
+}*/
+//print_r($stars_Shop_filtered_month);
+
+for ($i = 0; $i < sizeof($stars_Shop_filtered_month); $i++){//Get only stars and not dates
+	$reviews_stars_shop_month[] = $stars_Shop_filtered_month[$i]->$DataRating_month;
+}
+//print_r($reviews_stars_shop_month);
 
 ////////////////////////////WORDPRESS REVIEWS////////////////////////////////////
 $html_word_w = file_get_html('https://wordpress.org/support/plugin/weglot/reviews/', false);
@@ -75,13 +119,13 @@ for ($i = 0; $i < sizeof($stars_WP_filtered); $i++){
 }
 
 
-//count number of 5 stars on WordPress each week from the last Monday 00:00:00
+//count the numnber of 5 stars on WordPress each week from last MONDAY 00:00:00
 function count_review_WordPress($list1, $list2){//$list1 = dates  $list2 = stars
 $p=0;
-$day_today= date("l",strtotime(date("Y:m:d h:m:s")));//get the name of the date today
+$day_today= date("l",strtotime(date("Y:m:d h:m:s")));//Get today's day name
 	for ($k = 0; $k < sizeof($list1); $k++){
-		if ($day_today == "Monday" & $list2[$k] == "5 out of 5 stars"){ // $k+1 because we have the average 
-		//total reviews at $k=0
+		if ($day_today == "Monday" & $list2[$k] == "5 out of 5 stars"){
+
 			if( strstr($list1[$k], "1 day")==true) {
 			}
 			elseif(strstr($list1[$k], "2 days")==true){
@@ -269,8 +313,17 @@ return $p;
 $wordp = count_review_WordPress($reviews_list_word, $reviews_stars_word);
 
 
+////////////////////////////TRUSTPILOT REVIEWS//////////////////////////////////// wait for API
+$html_trust_w = file_get_html('https://fr.trustpilot.com/review/weglot.com?languages=all', false);
+$list_trust_w = $html_trust_w->find('time[class="review-date--tooltip-target"]');
 
-
+for ($i = 0; $i < sizeof($list_trust_w); $i++){//Not working because it should be done with
+											  //TP API that we don't have	
+	echo $list_trust_w[$i]->plaintext;
+	echo "<br>";
+	echo $i;
+}
+$total = count_review_WordPress($reviews_list_word, $reviews_stars_word) + count_review_Shopify($reviews_list_shop, $reviews_stars_shop);
 
 
 

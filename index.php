@@ -3,15 +3,22 @@
    <head>
       <meta charset="utf-8">
       <title>Weglot Support Team Dashboard</title>
+
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
       <script src="js/Chart.bundle.min.js"></script>
       <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+      <script type = "text/JavaScript">
+            function AutoRefresh( t ) {
+               setTimeout("location.reload(true);", t);
+            }
+      </script>
    </head>
-   <body>
+   <body onload = "JavaScript:AutoRefresh(1000*300);" id="body">
       <h1>Weglot Support Dashboard</h1>
       <div class="container">
+        <p>Relevés des statistiques du support</p>
       <div class="row row-cols-2">
          <div class="col">
             <div class="card">
@@ -23,8 +30,8 @@
                         <?php include 'reviews.php' ?>
                         <table>
                            <tr>
-                              <td style="border-top: none;
-                                         border-left: none;">
+                              <td>
+                                RECORD DE REVIEWS : 30
                               </td>
                               <td>Semaine</td>
                               <td>All</td>
@@ -56,21 +63,48 @@
                </div>
             </div>
          </div>
-         <div class="col">
-            <!-- Churn/React % here-->
-            <div class="card">
-               <div class="card-body">
-                  <div class="churn">
-                     Churn/React % here boyz
-                     <div class="chart_mogul">
-                        <?php include 'chartmogul.php' ?>
-                        Still waiting for ChartMogul support...
-                     </div>
-                  </div>
-                  <!-- End Churn/React % here-->
-               </div>
-            </div>
-         </div>
+        <div class="col youtube">
+          <script src="https://www.youtube.com/iframe_api"></script>
+          <div class="module module-home-video">
+              <div id="video"></div>
+          </div>
+    <!-- REVIEWS DISCOOOOO -->
+    <script>
+        var player, playing = false;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('video', {
+                height: '120',
+                width: '300',
+                videoId: 'XCPj4JPbKtA',
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+        function onPlayerStateChange(event) {
+              //clearInterval(interval);
+          if(event.data == YT.PlayerState.PLAYING) {
+             playing = true;
+             clearInterval(interval);
+             var i = 0; 
+              function change() {
+              var color = ["black", "bleu", "brown", "green", "yellow", "purple"];
+              document.getElementById("body").style.background = color[i];
+              i = (i + 1) % color.length;
+              }
+              var interval = setInterval(change, 100); 
+              setTimeout(function(){clearInterval(interval);}, 22000);
+
+              setTimeout(function(){ 
+                  document.getElementById("body").style.background = "linear-gradient(180deg, rgba(252,252,255,1) 0%, rgba(233,235,255,1) 78%)";
+              }, 23000);
+            }
+          else{
+            playing = true;
+           }
+    }
+    </script>
+         </div> 
          <div class="col">
             <!-- Stats here-->
             <div class="card">
@@ -112,6 +146,7 @@
                         <canvas id="myChart"></canvas>
                         <canvas id="myChart1"></canvas>
                      </div>
+                    <!--ChartJS charts code -->
                      <script>
                         var helped_this_week = "<?php echo $helped_this_week ?>";
                         var helped_last_week = "<?php echo $helped_last_week ?>";
@@ -127,12 +162,12 @@
                                 datasets: [{
                                     data: [helped_this_week, helped_last_week],
                                     backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
+                                        '#3d46fb',
+                                        '#2d1c6b',
                                     ],
                                     borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
+                                        '#3d46fb',
+                                        '#2d1c6b',
                                     ],
                                     borderWidth: 1
                                 }]
@@ -143,12 +178,13 @@
                                   labels: {
                                     render: 'value',
                                     fontSize: 30,
+                                    fontColor: "#fcfcff"
                                     }
                                 },
                                 legend: {
                                     labels: {
                                         fontSize: 18,
-                                        fontColor: "#18164c"
+                                        fontColor: "#18164c",
                                     }
                                 }
                             }
@@ -160,12 +196,12 @@
                                 datasets: [{
                                     data: [msg_this_week, msg_last_week],
                                     backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
+                                        '#3d46fb',
+                                        '#2d1c6b',
                                     ],
                                     borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
+                                        '#3d46fb',
+                                        '#2d1c6b',
                                     ],
                                     borderWidth: 1,
                                 }]
@@ -175,6 +211,7 @@
                                   labels: {
                                     render: 'value',
                                     fontSize: 30,
+                                    fontColor: "#fcfcff"
                                     }
                                 },
                                 legend: {

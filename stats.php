@@ -7,21 +7,36 @@ use HelpScout\Api\Users\UserFilters;
 use HelpScout\Api\Reports\Company;
 
 
-$appId = "app_id";
-$appSecret = "app_secret";
-$refreshToken = "refresh_token";
+$appId = "HcNMxJqxdTDezmUJ9PxCW6A8TrVRMKmL";
+$appSecret = "b1ukB2v2Rfi7yIeK0TXl9SXEIyfjz5hK";
+$refreshToken = "BQbSTUwd0ElaaAQicHDUHYKuwfdttrGR";
+
 $client = ApiClientFactory::createClient();
-
-$client->setAccessToken('access_token');
-
+$client->setAccessToken('YltMxEWaBdmjZrvmYCeC35MyRAN3Tcuk');
 $client->useClientCredentials($appId, $appSecret);
-
 $client->useRefreshToken($appId, $appSecret, $refreshToken);
+//$client->getAuthenticator()->fetchAccessAndRefreshToken();
 
-$start = date('Y-m-d\Th:m:s\Z',strtotime('monday this week - 1 hour'));
-$end   = date('Y-m-d\Th:m:s\Z',strtotime('today'));
-$start_last = date('Y-m-d\Th:m:s\Z',strtotime('last monday -7 days -1 hour'));
-$end_last  = date('Y-m-d\Th:m:s\Z',strtotime('last sunday'));
+/*$client = $client->swapAuthorizationCodeForReusableTokens(
+    $appId,
+    $appSecret,
+    $authorizationCode
+);
+$users = $client->users()->list();
+/**
+ * Refreshing an expired token
+ */
+/*$client->useRefreshToken(
+    $appId,
+    $appSecret,
+    $refreshToken
+);
+$newTokens = $client->getAuthenticator()->fetchAccessAndRefreshToken()->getTokens();*/
+
+$start = date('Y-m-d\TH:m:s\Z',strtotime('monday this week'));
+$end   = date('Y-m-d\TH:m:s\Z',strtotime('now'));
+$start_last = date('Y-m-d\TH:m:s\Z',strtotime('monday this week  -7 days'));
+$end_last  = date('Y-m-d\TH:m:s\Z',strtotime('last sunday'));
 
 
 $params = [
@@ -56,8 +71,7 @@ $top = $data_actual_customer_name[0]["replies"];
 $bottom = $data_actual_customer_name[6]["replies"];
 $percentage = round($top/$bottom, 2);
 
-//fill the table with names, nb of messages and customers helped
-//get only the support team members
+// fill the table with names, nb of messages and customers helped
 foreach  ($data_actual_customer_name as $values){
     if ($values["name"] !== "Elizabeth Pokorny" 
         & $values["name"] !== "Eugene Ernoult"
@@ -65,7 +79,9 @@ foreach  ($data_actual_customer_name as $values){
         & $values["name"] !== "Laura Gutierrez"
         & $values["name"] !== "Meryl Csibra"
         & $values["name"] !== "Thomas Fanchin"
-
+        & $values["name"] !== "Thibaud Guerin"
+        & $values["name"] !== "Augustin Prot"
+        & $values["name"] !== "Floran Pagliai"
     ) {
         echo '
         <tr>

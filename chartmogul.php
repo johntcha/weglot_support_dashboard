@@ -1,12 +1,18 @@
 <?php
+//https://github.com/chartmogul/chartmogul-php/blob/master/README.md
+//karina@weglot.com
+//Kd113081!
+
+
 require('./chartmogul/vendor/autoload.php');
 
 ChartMogul\Configuration::getDefaultConfiguration()
-    ->setAccountToken('account_token')
-    ->setSecretKey('secret_token');
+    ->setAccountToken('bb750291569884aa6bca2c7d90e0a857')
+    ->setSecretKey('798179e7d98e2c39231d6add087955b7');
 //print_r(ChartMogul\Ping::ping()->data);
 
 $actual_month = date('n');
+//echo $test = date('Y-m-d',strtotime("first day of january"));
 
 //determine the previous quarter according to the date today
 if ($actual_month >4 && $actual_month <9){ //Quarter 2
@@ -37,7 +43,7 @@ elseif($actual_month >=1 && $actual_month <5){ // Quarter 1
 }
 
 else{
-	echo "error";
+	echo "nooooope";
 }
 
 
@@ -59,6 +65,20 @@ $quarter_data = $quarter->entries->toArray();
 $total_churn = 0;
 $total_react = 0;
 
+/*for ($i = 0; $i < sizeof($quarter_data); $i++){
+	echo $quarter_data[$i]->mrr_churn;//faut pas additionner
+	//faut faire total du mois - total du mois en cours(ou dernier mois)
+	echo "</br>";
+	echo $quarter_data[$i]->mrr_reactivation;
+	echo "</br>";
+}*/
+
+/*$percentage = round(abs($total_react/$total_churn), 2);
+echo "$percentage %"*/
+
+
+
+
 //this week
 $first_day_w = date("Y-m-d",strtotime('last monday', strtotime('tomorrow')));
 $last_day_w = date("Y-m-d");
@@ -71,5 +91,13 @@ $week = ChartMogul\Metrics::mrr([
 
 //print_r($week_data = $quarter->entries->toArray());
 $week_data = $quarter->entries->toArray();
+
+/*for ($i = 0; $i < sizeof($quarter_data); $i++){
+	echo $week_data[$i]->mrr_churn;//faut pas additionner
+	//faut faire total du mois - total du mois en cours(ou dernier mois)
+	echo "</br>";
+	echo $week_data[$i]->mrr_reactivation;
+	echo "</br>";
+}*/
 
 ?>

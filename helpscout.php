@@ -1,4 +1,6 @@
 <?php
+// ID: HcNMxJqxdTDezmUJ9PxCW6A8TrVRMKmL
+// Secret: b1ukB2v2Rfi7yIeK0TXl9SXEIyfjz5hK
 require_once './vendor/autoload.php';
 
 use HelpScout\Api\ApiClientFactory;
@@ -8,21 +10,31 @@ use HelpScout\Api\Conversations\ConversationRequest;
 use HelpScout\Api\Users\UserFilters;
 use HelpScout\Api\Reports\Company;
 
-$appId = "app_id";
-$appSecret = "app_secret";
-$refreshToken = "refresh_token";
-$client = ApiClientFactory::createClient();
+$appId = "HcNMxJqxdTDezmUJ9PxCW6A8TrVRMKmL";
+$appSecret = "b1ukB2v2Rfi7yIeK0TXl9SXEIyfjz5hK";
+$refreshToken = "BQbSTUwd0ElaaAQicHDUHYKuwfdttrGR";
 
-$client->setAccessToken("access_token");
+$client = ApiClientFactory::createClient();
+$client->setAccessToken("YltMxEWaBdmjZrvmYCeC35MyRAN3Tcuk");
 $client->useClientCredentials($appId, $appSecret);
 $client->useRefreshToken($appId, $appSecret, $refreshToken);
 
+/**
+ * Refreshing an expired token
+ */
+/*$client->useRefreshToken(
+    $appId,
+    $appSecret,
+    $refreshToken
+);
+$newTokens = $client->getAuthenticator()->fetchAccessAndRefreshToken()->getTokens();*/
+
 
 //From Monday to today
-$start = date('Y-m-d\Th:m:s\Z',strtotime('monday this week  -1 hour'));
-$end   = date('Y-m-d\Th:m:s\Z',strtotime('today'));
-$start_last = date('Y-m-d\Th:m:s\Z',strtotime('monday this week  -7 days -1hour'));
-$end_last  = date('Y-m-d\Th:m:s\Z',strtotime('last sunday'));
+$start = date('Y-m-d\TH:m:s\Z',strtotime('monday this week'));
+$end   = date('Y-m-d\TH:m:s\Z',strtotime('now'));
+$start_last = date('Y-m-d\TH:m:s\Z',strtotime('monday this week  -7 days'));
+$end_last  = date('Y-m-d\TH:m:s\Z',strtotime('last sunday'));
 
 
 $params = [
@@ -33,6 +45,8 @@ $params = [
     'types' => 'email'
 ];
 
+
+//results
 $report = $client->runReport(Company\Overall::class, $params);
 
 $json = json_encode($report);

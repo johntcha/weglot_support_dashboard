@@ -1,22 +1,31 @@
 h1{
   text-align: center;
+  padding-top: 10px;
 }
 
+.container{
+  text-align: center;
+}
 .h2, h2 {
     font-size: 1.5rem!important;
     text-align: center;
     border-bottom: 1px solid #e0e5e9;
     padding: 5px;
 }
+html.js-focus-visible {
+    height: 100%!important;
+}
 html.js-focus-visible body {
-  background: #f4f8fc;
+  background: linear-gradient(180deg, rgba(252,252,255,1) 0%, rgba(233,235,255,1) 78%);
+  /*background:#f4f8fc;*/
   color: #18164c;
   overflow-x: hidden;
   overflow-y: hidden;
 }
 
+
 td {
-  border: 3px solid #18164c;
+  border: 1px solid #dee2e6;
 }
 
 tr {
@@ -52,12 +61,18 @@ canvas#myChart1{
 }
 
 .col-charts{
-  margin-top: -94px;
+  margin-top: -112px;
 }
 
 span.ratio {
     float: right;
 }
 
+.col.youtube {
+    text-align: center;
+}
 
+.ytp-chrome-top.ytp-show-cards-title {
+    display: none!important;
+}
 
