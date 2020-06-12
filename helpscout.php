@@ -10,12 +10,12 @@ use HelpScout\Api\Conversations\ConversationRequest;
 use HelpScout\Api\Users\UserFilters;
 use HelpScout\Api\Reports\Company;
 
-$appId = "HcNMxJqxdTDezmUJ9PxCW6A8TrVRMKmL";
-$appSecret = "b1ukB2v2Rfi7yIeK0TXl9SXEIyfjz5hK";
-$refreshToken = "BQbSTUwd0ElaaAQicHDUHYKuwfdttrGR";
+$appId = "app_id";
+$appSecret = "app_secret";
+$refreshToken = "refresh_token";
 
 $client = ApiClientFactory::createClient();
-$client->setAccessToken("YltMxEWaBdmjZrvmYCeC35MyRAN3Tcuk");
+$client->setAccessToken("access_token");
 $client->useClientCredentials($appId, $appSecret);
 $client->useRefreshToken($appId, $appSecret, $refreshToken);
 

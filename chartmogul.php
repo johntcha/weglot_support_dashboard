@@ -7,8 +7,8 @@
 require('./chartmogul/vendor/autoload.php');
 
 ChartMogul\Configuration::getDefaultConfiguration()
-    ->setAccountToken('bb750291569884aa6bca2c7d90e0a857')
-    ->setSecretKey('798179e7d98e2c39231d6add087955b7');
+    ->setAccountToken('account_token')
+    ->setSecretKey('secret_key');
 //print_r(ChartMogul\Ping::ping()->data);
 
 $actual_month = date('n');
