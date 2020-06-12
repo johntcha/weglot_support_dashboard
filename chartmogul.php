@@ -1,9 +1,4 @@
 <?php
-//https://github.com/chartmogul/chartmogul-php/blob/master/README.md
-//karina@weglot.com
-//Kd113081!
-
-
 require('./chartmogul/vendor/autoload.php');
 
 ChartMogul\Configuration::getDefaultConfiguration()
