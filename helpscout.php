@@ -1,6 +1,4 @@
 <?php
-// ID: HcNMxJqxdTDezmUJ9PxCW6A8TrVRMKmL
-// Secret: b1ukB2v2Rfi7yIeK0TXl9SXEIyfjz5hK
 require_once './vendor/autoload.php';
 
 use HelpScout\Api\ApiClientFactory;
