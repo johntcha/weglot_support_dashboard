@@ -1,7 +1,7 @@
 
 # Presentation
 
-This project is a PHP built dashboard retrieving the essential information about the amazing Support Team using Simple HTML DOM Scraper and the Helpscout API. Here is the link for it: [](http://ec2-3-124-218-190.eu-central-1.compute.amazonaws.com/)[http://ec123456789.example.compute.amazonaws.com/](http://ec123456789.example.compute.amazonaws.com/).
+This project is a PHP built dashboard retrieving the essential information about the Weglot Support Team using Simple HTML DOM Scraper and the Helpscout API. Here is the link for it: [](http://ec123456789.example.amazonaws.com/)[http://ec123456789.example.compute.amazonaws.com/](http://ec123456789.example.compute.amazonaws.com/).
 
 The dashboard is split into 3 major parts: the reviews, the statistics of each member of the support team and the statistic of the past and current week.
 
